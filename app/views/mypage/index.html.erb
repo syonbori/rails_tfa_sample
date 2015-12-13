@@ -1,0 +1,28 @@
+<h1>my page</h1>
+<h2>profile</h2>
+<dl>
+  <dt>name</dt>
+  <dd><%= current_user.name %></dd>
+</dl>
+
+<hr>
+<h2>FIDO U2F</h2>
+<%= link_to '[U2F Required Page]', secret_path %>
+|
+<%= link_to '[Register U2F Device]', new_two_factor_auth_registration_path %>
+<h3>Registrations</h3>
+<%- @regs.each do |reg| %>
+    <dl>
+      <dt>key_handle</dt>
+      <dd><%= readable_kh(reg) %></dd>
+
+      <dt>public_key</dt>
+      <dd><%= readable_pkey(reg) %></dd>
+
+      <dt>certificate</dt>
+      <dd><pre><%= readable_cert(reg) %></pre></dd>
+    </dl>
+<%- end %>
+
+<hr>
+<%= link_to 'Logout', '/logout', method: :delete %>
